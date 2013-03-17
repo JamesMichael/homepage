@@ -42,7 +42,7 @@ function switch_pane(pane_index) {
     }
     current_pane = pane_index;
 
-    document.title = '[% title %] > ' + page_title;
+    document.title = main_title + ' > ' + page_title;
 
 }
 
