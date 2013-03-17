@@ -1,0 +1,31 @@
+#!/usr/bin/env perl
+
+use warnings;
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Getopt::Long;
+
+use Homepage;
+
+my ($input_path, $output_path);
+my $theme;
+GetOptions(
+    'i|input=s'     => \$input_path,
+    'o|output=s'    => \$output_path,
+    't|theme=s'     => \$theme,
+    'v|verbose'     => \$Homepage::VERBOSE,
+) or die "Invalid options";
+
+die '--input is a required option'  unless $input_path;
+die '--output is a required option' unless $output_path;
+
+my $homepage = Homepage->new(
+    input   => $input_path,
+    output  => $output_path,
+    theme   => $theme,
+);
+
+$homepage->build;

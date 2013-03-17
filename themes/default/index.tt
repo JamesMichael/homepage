@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <title>[% title %]</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script> main_title = '[% title %]'; </script>
+    <script type="text/javascript" src="js/panels.js"></script>
+</head>
+<body>
+
+[%- BLOCK navigation_link -%]
+        <li><a href="[% url %]"><span class="menu-text">[% title %]</span></a></li>
+[% END -%]
+
+[%- BLOCK sidebar_category -%]
+        <li class="sidebar-header">[% title %]</li>
+[% END -%]
+
+[%- BLOCK sidebar_link -%]
+        <li class="sidebar-item"><a href="javascript:void(0)" data-source="[% source %]">[% title %]</a></li>
+[% END -%]
+
+<header>
+    <ul>
+        <li><span class="title"><span class="menu-text">[% title %]</span></span></li>
+[% FOREACH link IN navigation;
+    PROCESS navigation_link title=link.title url=link.url;
+END -%]
+    </ul>
+</header>
+
+<aside>
+    <ul id="sidebar">
+[% FOREACH category IN content;
+    PROCESS sidebar_category title=category.category;
+    FOREACH page IN category.pages;
+        PROCESS sidebar_link title=page.title source=page.source;
+    END;
+END -%]
+    </ul>
+</aside>
+
+<section>
+    <div id="content"></div>
+</section>
+
+</body>
+</html>
